@@ -188,8 +188,8 @@ function _separateThousands(amount, thousands_separator) {
 }
 
 function _getDecimals (decimals, decimal_digits) {
-  var decimals = decimals.substr(0, decimal_digits);
   if( typeof decimal_digits !== 'number' ) return decimals;
+  var decimals = decimals.substr(0, decimal_digits);
   for( var i = decimal_digits - decimals.length ; i > 0 ; i-- ) decimals += '0';
   return decimals;
 }
