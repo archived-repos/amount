@@ -1,6 +1,6 @@
 {
   "name": "amount",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "amount.js",
   "directories": {
     "test": "tests"
