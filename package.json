@@ -1,7 +1,6 @@
 {
   "name": "amount",
   "version": "1.0.0",
-  "description": "",
   "main": "format-currency.js",
   "directories": {
     "test": "tests"
@@ -13,5 +12,19 @@
   "license": "ISC",
   "devDependencies": {
     "mocha": "^5.0.0"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiltjs/amount.git"
+  },
+  "keywords": [
+    "amount",
+    "formatter"
+  ],
+  "bugs": {
+    "url": "https://github.com/kiltjs/amount/issues"
+  },
+  "homepage": "https://github.com/kiltjs/amount#readme",
+  "description": ""
 }
