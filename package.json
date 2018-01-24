@@ -1,6 +1,6 @@
 {
   "name": "amount",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "format-currency.js",
   "directories": {
     "test": "tests"
