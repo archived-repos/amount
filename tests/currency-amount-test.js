@@ -3,7 +3,7 @@
 var amount = require('../amount'),
     assert = require('assert');
 
-describe('custom', function () {
+describe('amount', function () {
 
   [
     [ 9987987.111, ',', '.', 2, '9,987,987.11'],

@@ -13,7 +13,7 @@ describe('USD', function () {
 
     it('' + params[0] + ' - expects: `' + params[1] + '`', function () {
 
-      assert.strictEqual( formatCurrency(params[0], 'USD'), params[1] );
+      assert.strictEqual( amount.currency(params[0], 'USD'), params[1] );
 
     });
 

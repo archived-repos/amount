@@ -163,7 +163,7 @@ var currency_formatters = [
   'WON|,|.|1||2|₩',
 ].reduce(function (currencies, currency) {
   var args = currency.split('|');
-  currencies[args[0]] = _formatCurrency.apply(_normalizeThis.apply(null, args), _normalizeArgs.apply(null, args) );
+  currencies[args[0]] = _formatCurrencyFn.apply(_normalizeThis.apply(null, args), _normalizeArgs.apply(null, args) );
   return currencies;
 }, {});
 
@@ -200,7 +200,7 @@ function _formatAmount(amount, thousands_separator, decimals_separator, decimal_
   return _separateThousands( parseInt(amount), thousands_separator ) + ( amount_parts[1] ? ( decimals_separator + _getDecimals(amount_parts[1], decimal_digits) ) : '' );
 }
 
-function _formatCurrency (currency_code, thousands_separator, decimals_separator, decimal_digits, symbol, symbol_on_left, symbol_space) {
+function _formatCurrencyFn (currency_code, thousands_separator, decimals_separator, decimal_digits, symbol, symbol_on_left, symbol_space) {
   return symbol_on_left ? function (amount) {
     return symbol + symbol_space + _formatAmount(amount, thousands_separator, decimals_separator, decimal_digits);
   } : function (amount) {
@@ -210,8 +210,8 @@ function _formatCurrency (currency_code, thousands_separator, decimals_separator
 
 function _formatCurrency (amount, code) {
   if( typeof code === 'string' ) return currency_formatters[code](amount);
-  return _formatCurrency(null, code.thousands_separator, code.decimals_separator, code.decimal_digits, code.symbol, code.symbol_on_left, code.symbol_space)(amount);
-}
+  return _formatCurrencyFn(null, code.thousands_separator, code.decimals_separator, code.decimal_digits, code.symbol, code.symbol_on_left, code.symbol_space)(amount);
+};
 
 _formatAmount.currency = _formatCurrency;
 
