@@ -20,6 +20,7 @@ yarn add amount
 ### Usage
 
 ``` js
+// amount(amount, decimals_separator, thousands_separator, decimal_digits)
 
 amount(87686.987);
 // '87686.987'
@@ -56,5 +57,15 @@ amount.currency(87686.987, 'EUR');
 
 amount.currency(87686.987, 'USD');
 // '$87,686.98'
+
+amount.currency(87686.987, {
+  thousands_separator: ',',
+  decimals_separator: '.',
+  decimal_digits: 2,
+  symbol: '€',
+  symbol_on_left: false,
+  symbol_space: ' ',
+});
+// '87.686,98 €'
 
 ```
