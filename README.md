@@ -1,6 +1,8 @@
 
 # amount
 
+Amount and currency formatter
+
 [![npm](https://img.shields.io/npm/v/amount.svg)](https://www.npmjs.com/package/amount)
 [![Build Status](https://travis-ci.org/kiltjs/amount.svg?branch=master)](https://travis-ci.org/kiltjs/amount)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
