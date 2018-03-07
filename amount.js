@@ -168,7 +168,7 @@ var currency_formatters = [
 }, {});
 
 function _normalizeArgs (currency_code, thousands_separator, decimals_separator, symbol_on_left, symbol_space, decimal_digits, symbol) {
-  return [currency_code, thousands_separator, decimals_separator, /\d/.test(decimal_digits) ? Number(decimal_digits) : null, symbol, symbol_on_left === '1', symbol_space];
+  return [currency_code, decimals_separator, thousands_separator, /\d/.test(decimal_digits) ? Number(decimal_digits) : null, symbol, symbol_on_left === '1', symbol_space];
 }
 function _normalizeThis (currency_code, thousands_separator, decimals_separator, symbol_on_left, symbol_space, decimal_digits, symbol) {
   return {
@@ -183,35 +183,36 @@ function _normalizeThis (currency_code, thousands_separator, decimals_separator,
 }
 
 function _separateThousands(amount, thousands_separator) {
-  if( amount < 1000 ) return '' + amount;
+  if( amount < 1000 || thousands_separator === undefined ) return '' + amount;
   return _separateThousands( parseInt(amount/1000), thousands_separator ) + thousands_separator + amount%1000;
 }
 
 function _getDecimals (decimals, decimal_digits) {
   if( typeof decimal_digits !== 'number' ) return decimals;
-  var decimals = decimals.substr(0, decimal_digits);
+  decimals = decimals.substr(0, decimal_digits);
   for( var i = decimal_digits - decimals.length ; i > 0 ; i-- ) decimals += '0';
   return decimals;
 }
 
-function _formatAmount(amount, thousands_separator, decimals_separator, decimal_digits) {
+function _formatAmount(amount, decimals_separator, thousands_separator, decimal_digits) {
   var amount_parts = (amount + '').split('.');
+  if( decimals_separator === undefined ) return '' + amount;
 
   return _separateThousands( parseInt(amount), thousands_separator ) + ( amount_parts[1] ? ( decimals_separator + _getDecimals(amount_parts[1], decimal_digits) ) : '' );
 }
 
-function _formatCurrencyFn (currency_code, thousands_separator, decimals_separator, decimal_digits, symbol, symbol_on_left, symbol_space) {
+function _formatCurrencyFn (currency_code, decimals_separator, thousands_separator, decimal_digits, symbol, symbol_on_left, symbol_space) {
   return symbol_on_left ? function (amount) {
-    return symbol + symbol_space + _formatAmount(amount, thousands_separator, decimals_separator, decimal_digits);
+    return symbol + symbol_space + _formatAmount(amount, decimals_separator, thousands_separator, decimal_digits);
   } : function (amount) {
-    return _formatAmount(amount, thousands_separator, decimals_separator, decimal_digits) + symbol_space + symbol;
+    return _formatAmount(amount, decimals_separator, thousands_separator, decimal_digits) + symbol_space + symbol;
   };
 }
 
 function _formatCurrency (amount, code) {
   if( typeof code === 'string' ) return currency_formatters[code](amount);
-  return _formatCurrencyFn(null, code.thousands_separator, code.decimals_separator, code.decimal_digits, code.symbol, code.symbol_on_left, code.symbol_space)(amount);
-};
+  return _formatCurrencyFn(null, code.decimals_separator, code.thousands_separator, code.decimal_digits, code.symbol, code.symbol_on_left, code.symbol_space)(amount);
+}
 
 _formatAmount.currency = _formatCurrency;
 
