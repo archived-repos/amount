@@ -182,9 +182,15 @@ function _normalizeThis (currency_code, thousands_separator, decimals_separator,
   };
 }
 
+function _thousandsZeros (amount_str) {
+  if( amount_str.length === 1 ) return '00' + amount_str;
+  if( amount_str.length === 2 ) return '0' + amount_str;
+  return amount_str;
+}
+
 function _separateThousands(amount, thousands_separator) {
   if( amount < 1000 || thousands_separator === undefined ) return '' + amount;
-  return _separateThousands( parseInt(amount/1000), thousands_separator ) + thousands_separator + amount%1000;
+  return _separateThousands( parseInt(amount/1000), thousands_separator ) + thousands_separator + _thousandsZeros('' + amount%1000);
 }
 
 function _getDecimals (decimals, decimal_digits) {
